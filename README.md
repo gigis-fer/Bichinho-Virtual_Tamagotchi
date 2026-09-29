@@ -1,0 +1,1 @@
+# Bichinho-Virtual_Tamagotchi

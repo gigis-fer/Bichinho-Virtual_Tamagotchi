@@ -15,14 +15,14 @@ Idade: aumenta em 1
 class Pet (val name: String) {
     var nivelFome: Int = 50
     var nivelFelicidade: Int = 50
-    var nivelCansaco: Int = 50
+    var nivelCansaco: Int = 0
     var age: Int = 0
 
     fun verificarStatus() {
         println("Status atual de $name: ")
         println("Idade: $age")
         println("Nível alegria: $nivelFelicidade")
-        println("Nível de fome: $nivelFome/100 ")
+        println("Nível de fome: $nivelFome")
         println("Nível de Cansaço: $nivelCansaco")
     }
 
@@ -36,6 +36,15 @@ class Pet (val name: String) {
         nivelCansaco = (nivelCansaco + 10)
         println("$name adorou brincar! A felicidade aumentou, mas o cansaço também.")
 
+    }
+
+    fun descansar(){
+        if (nivelCansaco >= 10){
+            nivelCansaco -= 10
+        } else {
+            nivelCansaco = 0
+        }
+        println("$name tirou uma soneca refrescante! O cansaço diminuiu.")
     }
 
     fun passarTempo(){
@@ -61,12 +70,6 @@ class Pet (val name: String) {
         return false
     }
 
-    fun descansar(){
-        nivelCansaco = (nivelCansaco - 10)
-        println("$name tirou uma soneca refrescante! O cansaço diminuiu.")
-    }
-
-
     fun verificarVitoria(): Boolean {
         if (age >= 50) {
             println("\nParabéns! $name chegou aos 50 anos saudável e feliz! Você venceu!")
@@ -76,13 +79,12 @@ class Pet (val name: String) {
     }
 
 
-
 }
 
 fun main() {
     println("Bem-vindo(a) ao Simulador de Animal de Estimação Virtual!")
     print("Digite o nome do seu novo Pet: ")
-    val namePet = readln()
+    val namePet = readln().ifBlank { "Gabriel bezerra" }
 
     val meuPet = Pet(namePet)
     println("${meuPet.name} nasceu! Cuide bem dele até atingir a idade de 50 anos")
@@ -93,8 +95,9 @@ fun main() {
         println("1. Alimentar ${meuPet.name}")
         println("2. Brincar com ${meuPet.name}")
         println("3. Verificar o status de ${meuPet.name}")
-        println("4. Deixar o tempo passar")
-        println("5. Sair")
+        println("4. Descansar ${meuPet.name}")
+        println("5. Deixar o tempo passar")
+        println("6. Sair")
         print("Sua escolha: ")
 
        var escolha = readln ().toIntOrNull() ?: continue
@@ -103,8 +106,9 @@ fun main() {
             1 -> meuPet.alimentar()
             2 -> meuPet.brincar()
             3 -> meuPet.verificarStatus()
-            4 -> println("${meuPet.name} passou o tempo olhando pro nada...")
-            5 -> {
+            4 -> meuPet.descansar()
+            5 -> println("${meuPet.name} passou o tempo olhando pro nada...")
+            6 -> {
                 println("Saindo do simulador. Até logo!")
                 break
             }
